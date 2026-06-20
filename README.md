@@ -7,7 +7,9 @@ scored on five axes of "placeness," plotted on a MARTA-styled transit map, and
 the interface itself drains from warm Atlanta color toward cold concrete grey as
 a place slides toward non-place — the design enacts its own argument.
 
-**Live:** `https://linmicarm.github.io/atlanta-nonplace-guide/`
+<img width="1893" height="938" alt="image" src="https://github.com/user-attachments/assets/218ea7db-7651-497a-860b-5c734f924a44" />
+
+**Live:** `https://linmicarm.github.io/soulless-cities/`
 **Stack:** Vanilla HTML / CSS / JavaScript (ES modules), Leaflet, OpenStreetMap Overpass API. No framework, no backend, no build step.
 
 ---
@@ -118,7 +120,7 @@ Re-check contrast every time the ground changes.
 ES modules require a server (opening `index.html` over `file://` won't work):
 
 ```bash
-cd atlanta-nonplace-guide
+cd soulless-cities
 python3 -m http.server 8000
 # visit http://localhost:8000
 ```
@@ -126,7 +128,7 @@ python3 -m http.server 8000
 ## Project structure
 
 ```
-atlanta-nonplace-guide/
+soulless-cities/
 ├── index.html          # shell: masthead, spectrum, controls, map/list/detail, footer
 ├── styles.css          # MARTA color-block theme + the draining band system
 ├── main.js             # render + interaction: filters, map, list, detail, compare, deep-links
