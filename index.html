@@ -20,17 +20,17 @@
 <a class="skip" href="#detail">Skip to result</a>
 
 <header class="mast">
-  <span class="sticker sticker--peach" aria-hidden="true">🍑</span>
-  <span class="sticker sticker--peanut" aria-hidden="true">🥜</span>
-  <p class="mast__eye">an intown atlanta field guide</p>
-  <h1 class="mast__title">NON-PLACE DETECTOR</h1>
-  <p class="mast__lede">
-    Marc Augé named the <em>non-place</em>, a space built for movement and
-    transaction rather than belonging. This is a guide to intown Atlanta ranked
-    by the opposite: how <em>alive</em> a place feels. The livelier a spot, the
-    more it looks like Atlanta. As it drains toward a non-place, the color and
-    the collage drain with it, because a non-place could be anywhere.
-  </p>
+  <div class="mast__inner">
+    <p class="mast__eye">an intown atlanta field guide</p>
+    <h1 class="mast__title">NON-PLACE DETECTOR</h1>
+    <p class="mast__lede">
+      Marc Augé named the <em>non-place</em>, a space built for movement and
+      transaction rather than belonging. This is a guide to intown Atlanta ranked
+      by the opposite: how <em>alive</em> a place feels. The livelier a spot, the
+      more it looks like Atlanta. As it drains toward a non-place, the color and
+      the collage drain with it, because a non-place could be anywhere.
+    </p>
+  </div>
 </header>
 
 <!-- Spectrum: every place plotted by score, like a route diagram of aliveness -->
@@ -60,14 +60,19 @@
 </main>
 
 <footer class="colophon">
-  <p>
-    Five axes (Human Scale, Encounter, Friction, Uniqueness, Street Engagement),
-    weighted toward belonging. Four are authored judgments; Encounter can be
-    nudged by live OpenStreetMap data, the one signal OSM tags reliably. Map
-    tiles by CARTO and OpenStreetMap contributors. MARTA rail data approximate,
-    for orientation. Concept after Marc Augé and Jan Gehl. Scores are one
-    reading, not gospel. Argue with them.
-  </p>
+  <div class="colophon__inner">
+    <p class="colophon__lede stripe">A field guide to intown Atlanta, scored by how alive each place feels.</p>
+    <p>
+      Five axes (Human Scale, Encounter, Friction, Uniqueness, Street Engagement),
+      weighted toward belonging. Four are authored judgments; Encounter can be
+      nudged by live OpenStreetMap data, the one signal OSM tags reliably.
+    </p>
+    <p class="colophon__fine">
+      Map tiles by CARTO and OpenStreetMap contributors. MARTA rail data
+      approximate, for orientation. Concept after Marc Augé and Jan Gehl.
+      Scores are one reading, not gospel. Argue with them.
+    </p>
+  </div>
 </footer>
 
 <script type="module" src="main.js"></script>

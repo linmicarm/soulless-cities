@@ -37,7 +37,7 @@ function el(tag, props = {}, children = []) {
 }
 const $ = (s) => document.querySelector(s);
 
-const BAND_COLOR = { place: "#00A65D", hybrid: "#C8A93A", nonplace: "#9A9499" };
+const BAND_COLOR = { place: "#00A65D", hybrid: "#C8A93A", nonplace: "#8A95A0" };
 const BAND_LABEL = { place: "Living Place", hybrid: "Hybrid", nonplace: "Non-Place" };
 
 const SORTS = {

@@ -30,8 +30,8 @@
   /* line colors (also referenced in JS) */
   --line-red:#E11A2C; --line-gold:#C8A93A; --line-blue:#0067B1; --line-green:#00A65D;
 
-  /* drained ramp */
-  --concrete-1:#CDC8C2; --concrete-2:#9A9499; --concrete-3:#6E686F;
+  /* drained ramp: cool blue-grey so MARTA blue bleeds into the non-place end */
+  --concrete-1:#C2C8CE; --concrete-2:#8A95A0; --concrete-3:#5C6670;
 
   --font-display:"Anton",system-ui,sans-serif;
   --font-body:"Archivo",system-ui,sans-serif;
@@ -52,13 +52,14 @@
 html{scroll-behavior:smooth;}
 body{
   margin:0;color:var(--ink);font-family:var(--font-body);line-height:1.55;
-  background-color:var(--cream);
-  /* faint transit-paper texture: warm washes + a light grid like a map sheet */
+  /* MARTA yellow/gold body block (header is orange, footer is blue) */
+  background-color:#FFC627;
+  /* keep the transit-paper grid + faint warm washes over the yellow */
   background-image:
-    radial-gradient(circle at 10% 4%,rgba(255,130,0,.07) 0,transparent 26%),
-    radial-gradient(circle at 92% 6%,rgba(0,103,177,.07) 0,transparent 24%),
-    linear-gradient(rgba(0,0,0,.025) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(0,0,0,.025) 1px,transparent 1px);
+    radial-gradient(circle at 10% 4%,rgba(255,255,255,.18) 0,transparent 30%),
+    radial-gradient(circle at 92% 6%,rgba(0,103,177,.06) 0,transparent 24%),
+    linear-gradient(rgba(0,0,0,.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,0,0,.04) 1px,transparent 1px);
   background-size:auto,auto,28px 28px,28px 28px;
 }
 .skip{position:absolute;left:-999px;top:0;background:var(--ink);color:var(--cream);
@@ -74,27 +75,33 @@ body{
   clip-path:polygon(18% 0,100% 0,82% 100%,0 100%);
 }
 
-/* ---- masthead ---- */
-.mast{position:relative;max-width:1000px;margin:0 auto;padding:2.4rem 1.5rem 1.4rem;text-align:center;}
-.mast__eye{font-family:var(--font-mark);color:var(--orange-deep);font-size:1.05rem;
+/* ---- masthead: MARTA orange band (floods the brand color across the top) ---- */
+.mast{position:relative;margin:0;padding:2.4rem 1.5rem 1.8rem;text-align:center;
+  background:var(--orange);
+  border-bottom:5px solid var(--ink);
+  /* subtle diagonal stripe texture echoing the MARTA logo */
+  background-image:repeating-linear-gradient(115deg,
+    rgba(255,255,255,.06) 0 18px,transparent 18px 36px);}
+.mast__inner{max-width:1000px;margin:0 auto;}
+.mast__eye{font-family:var(--font-mark);color:var(--ink);font-size:1.05rem;
   transform:rotate(-2deg);display:inline-block;margin:0 0 .3rem;}
-.mast__title{font-family:var(--font-display);font-size:clamp(2.4rem,8vw,4.6rem);
-  line-height:.95;margin:0;letter-spacing:.01em;color:var(--ink);
-  /* MARTA orange hard offset + blue second offset = bold transit signage */
-  text-shadow:3px 3px 0 var(--orange),6px 6px 0 var(--blue);}
-.mast__lede{max-width:64ch;margin:1rem auto 0;color:var(--ink-soft);font-size:1.02rem;}
-.mast__lede em{color:var(--orange-deep);font-style:normal;font-weight:700;}
+.mast__title{font-family:var(--font-display);font-size:clamp(2.4rem,8vw,4.8rem);
+  line-height:.95;margin:0;letter-spacing:.01em;color:var(--cream);
+  /* cream fill with ink + blue hard offsets reads as bold transit signage on orange */
+  text-shadow:3px 3px 0 var(--ink),6px 6px 0 var(--blue);}
+.mast__lede{max-width:64ch;margin:1rem auto 0;color:#3a2410;font-size:1.02rem;font-weight:500;}
+.mast__lede em{color:var(--ink);font-style:normal;font-weight:800;}
 .sticker{position:absolute;font-size:2.1rem;filter:drop-shadow(2px 2px 0 rgba(0,0,0,.25));}
-.sticker--peach{left:9%;top:36%;transform:rotate(-12deg);}
-.sticker--peanut{right:9%;top:30%;transform:rotate(14deg);}
+.sticker--peach{left:7%;top:38%;transform:rotate(-12deg);}
+.sticker--peanut{right:7%;top:30%;transform:rotate(14deg);}
 @media(max-width:680px){.sticker{display:none;}}
 
 /* ---- spectrum bar ---- */
-.spectrum{max-width:1180px;margin:0 auto;padding:.4rem 1.5rem .2rem;}
+.spectrum{max-width:1500px;margin:0 auto;padding:1.2rem 1.5rem .2rem;}
 .spectrum__ends{display:flex;justify-content:space-between;font-family:var(--font-display);
   letter-spacing:.04em;font-size:.74rem;color:var(--ink-soft);margin-bottom:.3rem;}
 .spectrum__track{position:relative;height:26px;border:2px solid var(--ink);border-radius:999px;
-  background:linear-gradient(90deg,var(--concrete-1) 0%,var(--gold) 55%,var(--line-green) 100%);
+  background:linear-gradient(90deg,var(--concrete-2) 0%,var(--gold) 52%,var(--line-green) 100%);
   box-shadow:var(--shadow-sm);}
 .spectrum__tick{position:absolute;top:-4px;bottom:-4px;width:2px;background:rgba(0,0,0,.35);}
 .spectrum__dot{position:absolute;top:50%;width:13px;height:13px;border-radius:50%;
@@ -103,26 +110,34 @@ body{
 .spectrum__dot:hover{transform:translate(-50%,-50%) scale(1.5);z-index:3;}
 .spectrum__dot.is-sel{transform:translate(-50%,-50%) scale(1.7);box-shadow:0 0 0 3px var(--orange);z-index:4;}
 
-/* ---- controls (filters + sort) ---- */
-.controls{max-width:1180px;margin:0 auto;padding:.8rem 1.5rem 1rem;
-  display:flex;flex-wrap:wrap;gap:1rem 1.4rem;align-items:center;justify-content:center;}
-.ctl{display:flex;flex-wrap:wrap;gap:.45rem;align-items:center;}
-.ctl__label{font-family:var(--font-display);letter-spacing:.06em;color:var(--ink);
-  font-size:.85rem;margin-right:.15rem;opacity:.75;}
+/* ---- controls (filters + sort): three visually distinct groups ---- */
+.controls{max-width:1500px;margin:0 auto;padding:1rem 1.5rem 1.1rem;
+  display:flex;flex-wrap:wrap;gap:.6rem;align-items:stretch;justify-content:center;}
+/* each group is its own bordered capsule so Side / Vibe / Sort don't blur together */
+.ctl{display:flex;flex-wrap:wrap;gap:.4rem;align-items:center;
+  padding:.4rem .7rem;background:var(--paper);border:2px solid var(--ink);
+  border-radius:999px;box-shadow:3px 3px 0 var(--ink);}
+.ctl__label{font-family:var(--font-display);letter-spacing:.07em;text-transform:uppercase;
+  font-size:.72rem;margin-right:.25rem;padding:.1rem .45rem;border-radius:999px;
+  color:#fff;background:var(--ink);}
 .chip{font-family:var(--font-body);font-weight:700;font-size:.8rem;cursor:pointer;
-  padding:.32rem .75rem;border:2px solid var(--ink);border-radius:999px;
-  background:var(--paper);color:var(--ink);box-shadow:2px 2px 0 var(--ink);
-  transition:transform .1s,opacity .1s;opacity:.5;}
+  padding:.3rem .7rem;border:2px solid var(--ink);border-radius:999px;
+  background:#fff;color:var(--ink);
+  transition:transform .1s,opacity .1s;opacity:.55;}
 .chip:hover{transform:translate(-1px,-1px);}
-.chip.is-on{opacity:1;background:var(--orange);color:#fff;}
+.chip.is-on{opacity:1;}
+/* Side group active = MARTA blue; Sort group active = MARTA orange; Vibe = band colors.
+   This gives each group its own identity AND spreads blue + orange across the UI. */
+#side-filters .chip.is-on{background:var(--blue);color:#fff;}
+#sort-filters .chip.is-on{background:var(--orange);color:#fff;}
 .chip.band-place.is-on{background:var(--line-green);color:#fff;}
 .chip.band-hybrid.is-on{background:var(--gold);color:var(--ink);}
 .chip.band-nonplace.is-on{background:var(--concrete-2);color:#fff;}
 
 /* ---- layout: map taller so the two boxes align ---- */
-.layout{max-width:1180px;margin:0 auto;padding:0 1.5rem 2rem;
-  display:grid;grid-template-columns:1.35fr 1fr;
-  grid-template-areas:"map list" "detail detail";gap:1.2rem;align-items:start;}
+.layout{max-width:1500px;margin:0 auto;padding:0 1.5rem 2rem;
+  display:grid;grid-template-columns:1.5fr 1fr;
+  grid-template-areas:"map list" "detail detail";gap:1.4rem;align-items:start;}
 @media(max-width:900px){
   .layout{grid-template-columns:1fr;grid-template-areas:"map" "list" "detail";}
 }
@@ -131,7 +146,8 @@ body{
 .panel--map{grid-area:map;padding:0;overflow:hidden;}
 .panel--list{grid-area:list;display:flex;flex-direction:column;}
 .panel--detail{grid-area:detail;}
-.panel__h{font-family:var(--font-display);font-size:1.4rem;letter-spacing:.03em;margin:0;}
+.panel__h{font-family:var(--font-display);font-size:1.4rem;letter-spacing:.03em;margin:0;
+  padding-bottom:.3rem;border-bottom:3px solid var(--blue);}
 
 /* MAP HEIGHT bumped so it matches the ranking column visually. The list scrolls
    internally to the same height, so both boxes are the same tall rectangle. */
@@ -170,7 +186,7 @@ body{
 .detail__blurb{margin:0 0 .5rem;color:var(--ink-soft);max-width:72ch;}
 .detail__station{margin:0 0 1.1rem;font-weight:700;font-size:.88rem;color:var(--blue);}
 .detail__sub{font-family:var(--font-display);font-size:1.05rem;letter-spacing:.04em;
-  margin:1.4rem 0 .7rem;color:var(--ink);}
+  margin:1.4rem 0 .7rem;color:var(--ink);padding-left:.6rem;border-left:5px solid var(--blue);}
 
 /* gauge */
 .gauge{display:flex;gap:1.3rem;align-items:center;padding:1.2rem;border:3px solid var(--ink);
@@ -237,9 +253,17 @@ body{
 .cmp__num{position:absolute;font-size:.72rem;font-weight:700;padding:0 .35rem;}
 .cmp__cell--a .cmp__num{left:.35rem;} .cmp__cell--b .cmp__num{right:.35rem;}
 
-/* ---- colophon ---- */
-.colophon{max-width:1180px;margin:1rem auto 3rem;padding:0 1.5rem;color:var(--ink-soft);
-  font-size:.8rem;text-align:center;}
+/* ---- colophon: full-width MARTA blue footer band ---- */
+.colophon{margin:2rem 0 0;padding:2.2rem 1.5rem 2.6rem;color:#DCE8F5;
+  background:var(--blue);border-top:5px solid var(--ink);font-size:.84rem;
+  background-image:repeating-linear-gradient(115deg,
+    rgba(255,255,255,.05) 0 18px,transparent 18px 36px);}
+.colophon__inner{max-width:1000px;margin:0 auto;text-align:center;}
+.colophon__lede{font-family:var(--font-display);font-size:1.2rem;letter-spacing:.02em;
+  color:#fff;margin:0 0 1rem;}
+.colophon__lede.stripe::before{vertical-align:-2px;}
+.colophon p{margin:.6rem auto;max-width:80ch;}
+.colophon__fine{color:#A9C2DD;font-size:.78rem;}
 
 .leaflet-tooltip{font-family:var(--font-body);font-weight:700;}
 :focus-visible{outline:3px solid var(--orange);outline-offset:2px;}
