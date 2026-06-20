@@ -1,0 +1,249 @@
+/* ===========================================================================
+   styles.css — Intown Atlanta Non-Place Field Guide (MARTA edition)
+
+   PALETTE: the real MARTA brand. Hero orange, electric blue, gold, on a
+   transit-map cream paper ground. Line colors (red/gold/blue/green) appear on
+   the map. Ink is a warm near-black.
+
+   THESIS, unchanged and now MARTA-flavored: alive = warm + tilted + signage
+   energy; non-place = drained to concrete grey + flattened. A non-place sheds
+   its Atlanta-ness because it could be anywhere.
+
+   MOTIF: MARTA's diagonal three-stripe logo becomes a recurring device
+   (section headers, the live button), via the .stripe utility.
+
+   Display: Anton. Body: Archivo. Accent: Permanent Marker.
+   Signature: interstate-shield score badge (kept as an Atlanta-highway nod).
+   =========================================================================== */
+
+:root{
+  /* MARTA brand */
+  --orange:#FF8200;     /* MARTA hero orange */
+  --orange-deep:#E35205;
+  --blue:#0067B1;       /* MARTA blue */
+  --gold:#F2A900;       /* MARTA gold/amber */
+  --cream:#FBF6EC;      /* transit-map paper */
+  --paper:#FFFFFF;
+  --ink:#1A1714;
+  --ink-soft:#6E665C;
+
+  /* line colors (also referenced in JS) */
+  --line-red:#E11A2C; --line-gold:#C8A93A; --line-blue:#0067B1; --line-green:#00A65D;
+
+  /* drained ramp */
+  --concrete-1:#CDC8C2; --concrete-2:#9A9499; --concrete-3:#6E686F;
+
+  --font-display:"Anton",system-ui,sans-serif;
+  --font-body:"Archivo",system-ui,sans-serif;
+  --font-mark:"Permanent Marker",cursive;
+
+  --radius:6px;
+  --shadow:6px 6px 0 var(--ink);
+  --shadow-sm:4px 4px 0 var(--ink);
+}
+
+/* band theming: accent + tint + tilt + shield color. Non-place zeroes the tilt
+   and swaps to concrete (the drain is centralized here). */
+.band-place    { --accent:var(--line-green); --shield:var(--line-green); --tint:#E6F6EE; --tilt:-1deg; }
+.band-hybrid   { --accent:var(--gold);       --shield:var(--blue);       --tint:#FDF3DC; --tilt:-0.5deg; }
+.band-nonplace { --accent:var(--concrete-2); --shield:var(--concrete-3); --tint:#EEECEA; --tilt:0deg; }
+
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;color:var(--ink);font-family:var(--font-body);line-height:1.55;
+  background-color:var(--cream);
+  /* faint transit-paper texture: warm washes + a light grid like a map sheet */
+  background-image:
+    radial-gradient(circle at 10% 4%,rgba(255,130,0,.07) 0,transparent 26%),
+    radial-gradient(circle at 92% 6%,rgba(0,103,177,.07) 0,transparent 24%),
+    linear-gradient(rgba(0,0,0,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,0,0,.025) 1px,transparent 1px);
+  background-size:auto,auto,28px 28px,28px 28px;
+}
+.skip{position:absolute;left:-999px;top:0;background:var(--ink);color:var(--cream);
+  padding:.6rem 1rem;border-radius:0 0 var(--radius) 0;z-index:1000;}
+.skip:focus{left:0;}
+
+/* diagonal three-stripe MARTA motif, used as a left flourish on headers */
+.stripe::before{
+  content:"";display:inline-block;width:26px;height:.85em;margin-right:.5rem;
+  vertical-align:-1px;
+  background:linear-gradient(115deg,
+    var(--orange) 0 33%,var(--gold) 33% 66%,var(--blue) 66% 100%);
+  clip-path:polygon(18% 0,100% 0,82% 100%,0 100%);
+}
+
+/* ---- masthead ---- */
+.mast{position:relative;max-width:1000px;margin:0 auto;padding:2.4rem 1.5rem 1.4rem;text-align:center;}
+.mast__eye{font-family:var(--font-mark);color:var(--orange-deep);font-size:1.05rem;
+  transform:rotate(-2deg);display:inline-block;margin:0 0 .3rem;}
+.mast__title{font-family:var(--font-display);font-size:clamp(2.4rem,8vw,4.6rem);
+  line-height:.95;margin:0;letter-spacing:.01em;color:var(--ink);
+  /* MARTA orange hard offset + blue second offset = bold transit signage */
+  text-shadow:3px 3px 0 var(--orange),6px 6px 0 var(--blue);}
+.mast__lede{max-width:64ch;margin:1rem auto 0;color:var(--ink-soft);font-size:1.02rem;}
+.mast__lede em{color:var(--orange-deep);font-style:normal;font-weight:700;}
+.sticker{position:absolute;font-size:2.1rem;filter:drop-shadow(2px 2px 0 rgba(0,0,0,.25));}
+.sticker--peach{left:9%;top:36%;transform:rotate(-12deg);}
+.sticker--peanut{right:9%;top:30%;transform:rotate(14deg);}
+@media(max-width:680px){.sticker{display:none;}}
+
+/* ---- spectrum bar ---- */
+.spectrum{max-width:1180px;margin:0 auto;padding:.4rem 1.5rem .2rem;}
+.spectrum__ends{display:flex;justify-content:space-between;font-family:var(--font-display);
+  letter-spacing:.04em;font-size:.74rem;color:var(--ink-soft);margin-bottom:.3rem;}
+.spectrum__track{position:relative;height:26px;border:2px solid var(--ink);border-radius:999px;
+  background:linear-gradient(90deg,var(--concrete-1) 0%,var(--gold) 55%,var(--line-green) 100%);
+  box-shadow:var(--shadow-sm);}
+.spectrum__tick{position:absolute;top:-4px;bottom:-4px;width:2px;background:rgba(0,0,0,.35);}
+.spectrum__dot{position:absolute;top:50%;width:13px;height:13px;border-radius:50%;
+  transform:translate(-50%,-50%);border:2px solid var(--ink);cursor:pointer;padding:0;
+  background:var(--accent);transition:transform .1s;}
+.spectrum__dot:hover{transform:translate(-50%,-50%) scale(1.5);z-index:3;}
+.spectrum__dot.is-sel{transform:translate(-50%,-50%) scale(1.7);box-shadow:0 0 0 3px var(--orange);z-index:4;}
+
+/* ---- controls (filters + sort) ---- */
+.controls{max-width:1180px;margin:0 auto;padding:.8rem 1.5rem 1rem;
+  display:flex;flex-wrap:wrap;gap:1rem 1.4rem;align-items:center;justify-content:center;}
+.ctl{display:flex;flex-wrap:wrap;gap:.45rem;align-items:center;}
+.ctl__label{font-family:var(--font-display);letter-spacing:.06em;color:var(--ink);
+  font-size:.85rem;margin-right:.15rem;opacity:.75;}
+.chip{font-family:var(--font-body);font-weight:700;font-size:.8rem;cursor:pointer;
+  padding:.32rem .75rem;border:2px solid var(--ink);border-radius:999px;
+  background:var(--paper);color:var(--ink);box-shadow:2px 2px 0 var(--ink);
+  transition:transform .1s,opacity .1s;opacity:.5;}
+.chip:hover{transform:translate(-1px,-1px);}
+.chip.is-on{opacity:1;background:var(--orange);color:#fff;}
+.chip.band-place.is-on{background:var(--line-green);color:#fff;}
+.chip.band-hybrid.is-on{background:var(--gold);color:var(--ink);}
+.chip.band-nonplace.is-on{background:var(--concrete-2);color:#fff;}
+
+/* ---- layout: map taller so the two boxes align ---- */
+.layout{max-width:1180px;margin:0 auto;padding:0 1.5rem 2rem;
+  display:grid;grid-template-columns:1.35fr 1fr;
+  grid-template-areas:"map list" "detail detail";gap:1.2rem;align-items:start;}
+@media(max-width:900px){
+  .layout{grid-template-columns:1fr;grid-template-areas:"map" "list" "detail";}
+}
+.panel{background:var(--paper);border:3px solid var(--ink);border-radius:var(--radius);
+  box-shadow:var(--shadow);padding:1.2rem;}
+.panel--map{grid-area:map;padding:0;overflow:hidden;}
+.panel--list{grid-area:list;display:flex;flex-direction:column;}
+.panel--detail{grid-area:detail;}
+.panel__h{font-family:var(--font-display);font-size:1.4rem;letter-spacing:.03em;margin:0;}
+
+/* MAP HEIGHT bumped so it matches the ranking column visually. The list scrolls
+   internally to the same height, so both boxes are the same tall rectangle. */
+#map{width:100%;height:640px;}
+.panel--list{max-height:686px;}     /* 640 map + ~46 of list chrome */
+.list{display:flex;flex-direction:column;gap:.6rem;overflow-y:auto;padding-right:.3rem;flex:1;}
+@media(max-width:900px){#map{height:380px;}.panel--list{max-height:none;}.list{max-height:520px;}}
+
+.list__head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.7rem;}
+.list__count{font-family:var(--font-mark);color:var(--ink-soft);font-size:.92rem;}
+
+/* ---- cards ---- */
+.card{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:.8rem;
+  width:100%;text-align:left;cursor:pointer;font-family:var(--font-body);
+  background:var(--tint);border:3px solid var(--ink);border-radius:var(--radius);
+  box-shadow:var(--shadow-sm);padding:.5rem .7rem;transform:rotate(var(--tilt));
+  transition:transform .12s,box-shadow .12s;}
+.card:hover{transform:rotate(0) translate(-2px,-2px);box-shadow:var(--shadow);}
+.card.is-selected{outline:3px solid var(--orange);outline-offset:3px;transform:rotate(0);}
+.shield{position:relative;width:46px;height:50px;display:grid;place-content:center;flex:0 0 auto;}
+.shield svg{position:absolute;inset:0;width:100%;height:100%;}
+.shield__num{position:relative;font-family:var(--font-display);font-size:1.2rem;color:#fff;}
+.card__txt{display:flex;flex-direction:column;line-height:1.15;min-width:0;}
+.card__name{font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.card__area{font-size:.76rem;color:var(--ink-soft);}
+.card__band{font-family:var(--font-display);font-size:.6rem;letter-spacing:.04em;
+  background:var(--accent);color:#fff;border:2px solid var(--ink);border-radius:3px;
+  padding:.2rem .45rem;white-space:nowrap;}
+.band-hybrid .card__band{color:var(--ink);}
+
+/* ---- detail ---- */
+.detail__kicker{font-family:var(--font-display);letter-spacing:.08em;color:var(--orange-deep);
+  font-size:.8rem;margin:0 0 .2rem;}
+.detail__name{font-family:var(--font-display);font-size:clamp(1.7rem,4vw,2.5rem);
+  letter-spacing:.02em;margin:0 0 .25rem;}
+.detail__blurb{margin:0 0 .5rem;color:var(--ink-soft);max-width:72ch;}
+.detail__station{margin:0 0 1.1rem;font-weight:700;font-size:.88rem;color:var(--blue);}
+.detail__sub{font-family:var(--font-display);font-size:1.05rem;letter-spacing:.04em;
+  margin:1.4rem 0 .7rem;color:var(--ink);}
+
+/* gauge */
+.gauge{display:flex;gap:1.3rem;align-items:center;padding:1.2rem;border:3px solid var(--ink);
+  border-radius:var(--radius);background:var(--tint);box-shadow:var(--shadow);}
+.band-nonplace .gauge{box-shadow:3px 3px 0 var(--concrete-3);border-radius:3px;}
+.gauge__ring{width:116px;height:116px;flex:0 0 auto;border-radius:50%;border:5px solid var(--ink);
+  display:grid;place-content:center;
+  background:conic-gradient(var(--accent) calc(var(--score)*1%),var(--paper) 0);}
+.band-nonplace .gauge__ring{border-color:var(--concrete-3);}
+.gauge__num{font-family:var(--font-display);font-size:2.5rem;line-height:1;text-align:center;}
+.gauge__out{display:block;text-align:center;font-size:.75rem;color:var(--ink-soft);}
+.gauge__band{font-family:var(--font-display);font-size:1.5rem;letter-spacing:.02em;display:block;margin-bottom:.3rem;}
+.gauge__summary{margin:0;color:var(--ink-soft);font-size:.92rem;}
+
+/* axes */
+.axes{display:flex;flex-direction:column;gap:.85rem;}
+.axis__head{display:flex;justify-content:space-between;align-items:baseline;}
+.axis__label{font-family:var(--font-display);letter-spacing:.03em;}
+.axis__val{font-size:.82rem;color:var(--ink-soft);font-variant-numeric:tabular-nums;}
+.axis__track{height:15px;margin:.3rem 0;background:var(--paper);border:2px solid var(--ink);
+  border-radius:999px;overflow:hidden;}
+.axis__fill{height:100%;background:var(--accent);border-radius:999px 0 0 999px;transition:width .5s cubic-bezier(.2,.8,.2,1);}
+.axis__fill--live{background:repeating-linear-gradient(45deg,var(--orange) 0 8px,var(--gold) 8px 16px);}
+.axis__blurb{margin:0;font-size:.8rem;color:var(--ink-soft);}
+
+/* signals */
+.signals{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.45rem;}
+.signals li{position:relative;padding:.5rem .8rem .5rem 2rem;background:var(--tint);
+  border:2px solid var(--ink);border-radius:var(--radius);font-size:.9rem;}
+.signals li::before{content:"";position:absolute;left:.8rem;top:.95rem;width:.5rem;height:.5rem;
+  background:var(--accent);border:1px solid var(--ink);border-radius:50%;}
+
+/* actions */
+.actions{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.4rem;}
+.btn{font-family:var(--font-display);letter-spacing:.03em;font-size:.95rem;cursor:pointer;
+  padding:.65rem 1rem;color:var(--ink);background:var(--paper);border:3px solid var(--ink);
+  border-radius:var(--radius);box-shadow:var(--shadow-sm);transition:transform .12s,box-shadow .12s;}
+.btn:hover:not(:disabled){transform:translate(-2px,-2px);box-shadow:var(--shadow);}
+.btn:disabled{opacity:.7;cursor:progress;}
+.btn--live{background:var(--orange);color:#fff;flex:1 1 auto;}
+.btn--compare{background:var(--blue);color:#fff;}
+.btn--share{background:var(--gold);color:var(--ink);}
+.btn--exit{background:var(--concrete-2);color:#fff;box-shadow:var(--shadow-sm);}
+.live__note{margin:.7rem 0 0;font-size:.78rem;color:var(--ink-soft);}
+
+/* ---- compare view ---- */
+.cmp__head{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.6rem;}
+.cmp__cols{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1rem 0 1.4rem;}
+.cmp__col{display:flex;flex-direction:column;align-items:center;gap:.2rem;padding:1rem;
+  border:3px solid var(--ink);border-radius:var(--radius);background:var(--tint);box-shadow:var(--shadow-sm);}
+.cmp__score{font-family:var(--font-display);font-size:2.4rem;line-height:1;color:var(--accent);}
+.cmp__name{font-weight:800;text-align:center;}
+.cmp__band{font-family:var(--font-display);font-size:.7rem;letter-spacing:.04em;color:var(--ink-soft);}
+.cmp__rows{display:flex;flex-direction:column;gap:.6rem;}
+.cmp__row{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:.6rem;}
+.cmp__axis{font-family:var(--font-display);font-size:.78rem;letter-spacing:.03em;text-align:center;
+  white-space:nowrap;color:var(--ink-soft);min-width:9ch;}
+.cmp__cell{display:flex;align-items:center;height:18px;background:var(--paper);
+  border:2px solid var(--ink);border-radius:999px;overflow:hidden;position:relative;}
+.cmp__cell--a{flex-direction:row-reverse;}     /* left side fills from center out */
+.cmp__bar{height:100%;}
+.cmp__bar--a{background:var(--blue);}
+.cmp__bar--b{background:var(--orange);}
+.cmp__num{position:absolute;font-size:.72rem;font-weight:700;padding:0 .35rem;}
+.cmp__cell--a .cmp__num{left:.35rem;} .cmp__cell--b .cmp__num{right:.35rem;}
+
+/* ---- colophon ---- */
+.colophon{max-width:1180px;margin:1rem auto 3rem;padding:0 1.5rem;color:var(--ink-soft);
+  font-size:.8rem;text-align:center;}
+
+.leaflet-tooltip{font-family:var(--font-body);font-weight:700;}
+:focus-visible{outline:3px solid var(--orange);outline-offset:2px;}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition:none!important;scroll-behavior:auto!important;}
+  .card{transform:none!important;}
+}

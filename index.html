@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Intown: A Non-Place Field Guide to Atlanta</title>
+<meta name="description" content="Ranking intown Atlanta neighborhoods by how alive they feel, using Marc Augé's idea of the non-place." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700;800&family=Permanent+Marker&display=swap" rel="stylesheet" />
+
+<!-- Leaflet: keyless map. (No SRI hashes; they were blocking the load.) -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<a class="skip" href="#detail">Skip to result</a>
+
+<header class="mast">
+  <span class="sticker sticker--peach" aria-hidden="true">🍑</span>
+  <span class="sticker sticker--peanut" aria-hidden="true">🥜</span>
+  <p class="mast__eye">an intown atlanta field guide</p>
+  <h1 class="mast__title">NON-PLACE DETECTOR</h1>
+  <p class="mast__lede">
+    Marc Augé named the <em>non-place</em>, a space built for movement and
+    transaction rather than belonging. This is a guide to intown Atlanta ranked
+    by the opposite: how <em>alive</em> a place feels. The livelier a spot, the
+    more it looks like Atlanta. As it drains toward a non-place, the color and
+    the collage drain with it, because a non-place could be anywhere.
+  </p>
+</header>
+
+<!-- Spectrum: every place plotted by score, like a route diagram of aliveness -->
+<section class="spectrum" id="spectrum" aria-label="All neighborhoods by score"></section>
+
+<!-- Controls: filter by side + vibe, and sort the ranking -->
+<nav class="controls" aria-label="Filter and sort">
+  <div class="ctl" id="side-filters" role="group" aria-label="Side of town"></div>
+  <div class="ctl" id="band-filters" role="group" aria-label="How alive"></div>
+  <div class="ctl" id="sort-filters" role="group" aria-label="Sort order"></div>
+</nav>
+
+<main class="layout">
+  <section class="panel panel--map" aria-label="Map of neighborhoods and MARTA rail">
+    <div id="map"></div>
+  </section>
+
+  <section class="panel panel--list" aria-label="Ranked neighborhoods">
+    <div class="list__head">
+      <h2 class="panel__h stripe">The ranking</h2>
+      <span class="list__count" id="list-count"></span>
+    </div>
+    <div id="location-list" class="list" role="list"></div>
+  </section>
+
+  <section id="detail" class="panel panel--detail" aria-live="polite"></section>
+</main>
+
+<footer class="colophon">
+  <p>
+    Five axes (Human Scale, Encounter, Friction, Uniqueness, Street Engagement),
+    weighted toward belonging. Four are authored judgments; Encounter can be
+    nudged by live OpenStreetMap data, the one signal OSM tags reliably. Map
+    tiles by CARTO and OpenStreetMap contributors. MARTA rail data approximate,
+    for orientation. Concept after Marc Augé and Jan Gehl. Scores are one
+    reading, not gospel. Argue with them.
+  </p>
+</footer>
+
+<script type="module" src="main.js"></script>
+</body>
+</html>
